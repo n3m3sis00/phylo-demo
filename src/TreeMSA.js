@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Tree, MSA } from "phylo-react";
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 let counter = 0;
 
 export function TreeMSA(props){
-  const {treedata, msadata, showBranchLength, layout} = props
+  const {treedata, msadata, layout} = props
   const [treeresponse, setTreeresponse] = useState(null)
   const classes = useStyles()
   counter += 1;
@@ -34,7 +34,7 @@ export function TreeMSA(props){
               getConfig={treeresponse === null ? setTreeresponse : d => {}}/>
           </Box>
           <Box width="50%" style={{ overflowX: 'scroll' }}>
-          {treeresponse !== null ? <MSA data={msadata} heightoftree={treeresponse.treeheight} dataToShow={treeresponse.leafloc}/> : null}
+          {treeresponse !== null ? <MSA data={msadata} heigtoftree={treeresponse.treeheight} dataToShow={treeresponse.leafloc}/> : null}
           </Box>
         </div>
       </Grid>
@@ -42,7 +42,7 @@ export function TreeMSA(props){
 }
 
 export function TreeMSAB(props){
-  const {treedata, msadata, showBranchLength, layout} = props
+  const {treedata, msadata, layout} = props
   const [treeresponse, setTreeresponse] = useState(null)
   const classes = useStyles()
 

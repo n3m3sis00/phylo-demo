@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Tree, MSA } from "phylo-react";
+import { TreeMSA, TreeMSAB } from "./TreeMSA";
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import {Lysine_treeNewickformat, Lysine_msaStockformat} from './sampleData'
 
 const useStyles = makeStyles(theme => ({
   tree_div: {
@@ -15,122 +16,18 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-var seq = ""
-
-function findSequences(currentNode) {
-    console.log(seq)
-    var i, currentChild;
-    if (currentNode.sequences) {
-        seq += currentNode.sequences.id.accession + " " + currentNode.sequences.mol_seq.seq
-    } else {
-        if(currentNode.children){
-            for (i = 0; i < currentNode.children.length; i += 1) {
-                currentChild = currentNode.children[i];
-                findSequences(currentChild);
-            }
-        }
-    }
-}
-
-function TreeMSA(props){
-  const {treedata, msadata, geneId, showBranchLength, layout} = props
-  const [treeresponse, setTreeresponse] = useState(null)
-  const classes = useStyles()
-
-  console.log("reponse", treeresponse)
-  console.log("msadata", msadata)
-  return (
-      <Grid key={1} item>
-        <div className={classes.tree_div}>
-          <Box width="50%">
-            <Tree 
-              data = {treedata}
-              layout = {layout}
-              getConfig={treeresponse === null ? setTreeresponse : d => {}}/>
-          </Box>
-          <Box width="50%" style={{ overflowX: 'scroll' }}>
-          {treeresponse !== null ? <MSA data={msadata} heigtoftree={240} dataToShow={treeresponse.leafloc}/> : null}
-          </Box>
-        </div>
-      </Grid>
-  )
-}
-
 function App() {
   const [tree, setTree] = useState();
   const [msadata, setmsadata] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+  const [draw, setDraw] = useState('none');
   const [showBranchLength, setShowBranchLength] = useState(true);
-  const [geneId, setGeneId] = useState("ENSGT00390000003602");
-  const [species, setSpecies] = useState(true);
   return (
     <div className="App">
-      <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-          setLoading(true);
-          const result = await (species
-            ? fetch(
-                `https://rest.ensembl.org/cafe/genetree/id/${geneId}?content-type=text/x-nh;nh_format=simple`
-              )
-            : fetch(
-                `https://rest.ensembl.org/genetree/id/${geneId}?content-type=text/x-nh;nh_format=simple`
-              ));
-
-          const resultmsa = await fetch(
-                `https://rest.ensembl.org/genetree/id/${geneId}?content-type=application/json;aligned=1;sequence=cdna` //
-              );
-              
-          if (!result.ok && !resultmsa.ok) {
-            setError(result.statusText);
-            setLoading(false);
-            return;
-          }
-          const text = await result.text();
-          const msatext = await resultmsa.json();
-          console.log("consolelog msa", msatext)
-          console.log("consolelog msa", findSequences(msatext.tree))
-          setTree(text);
-          setmsadata(msatext)
-          setError(undefined);
-          setLoading(false);
-        }}
-      >
-        <label>
-          Enter Ensembl gene ID
-          <input
-            id="geneid"
-            value={geneId}
-            onChange={(event) => setGeneId(event.target.value)}
-            type="text"
-          />
-        </label>
-        <label>
-          Show branch length
-          <input
-            type="checkbox"
-            checked={showBranchLength}
-            onChange={(event) => {
-              setShowBranchLength(event.target.checked);
-            }}
-          />
-        </label>
-        <label>
-          Species (CAFE) tree or gene tree?
-          <input
-            type="checkbox"
-            checked={species}
-            onChange={(event) => {
-              setSpecies(event.target.checked);
-            }}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-      {loading ? <p>Loading...</p> : null}
-      {error ? <p style={{ color: "red" }}>{error}</p> : null}
-      {tree ? <TreeMSA treedata={tree} msadata={msadata} showBranchLength={showBranchLength} layout={"linear"}/> : null}
+      <button onClick={() => setDraw('fixed')}>Attach hacky fixed Tree MSA</button>
+      <button onClick={() => setDraw('buggy')}>Attach Tree MSA</button>
+      {draw === 'none' ? <h3>Click on any button above</h3> : null}
+      {draw === 'buggy' ? <TreeMSAB treedata={Lysine_treeNewickformat} msadata = {Lysine_msaStockformat} showBranchLength={showBranchLength} layout={"linear"}/> : null}
+      {draw === 'fixed' ? <TreeMSA treedata={Lysine_treeNewickformat} msadata = {Lysine_msaStockformat} showBranchLength={showBranchLength} layout={"linear"}/> : null}
     </div>
   );
 }

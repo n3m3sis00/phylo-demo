@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-var termasc = 0;
-var totalch = 0;
+// var termasc = 0;
+// var totalch = 0;
 
 var globalseq = ""
 function ensemblToStock(currentNode) {
@@ -27,7 +27,6 @@ function ensemblToStock(currentNode) {
             ensemblToStock(currentChild);
         }else{
             globalseq += currentNode.sequence.id[0].accession + " " + currentNode.sequence.mol_seq.seq + "\n";
-            totalch++;
             return;
         }
 
@@ -41,9 +40,10 @@ function TreeMSA(props){
 
 //   console.log("msadata", msadata)
 
-    console.log("attaching TREE MSA: " , termasc); termasc++;
-    console.log("Total Child: " , totalch); 
-    if(treeresponse !== null) console.log("Tree Response: ", treeresponse.leafloc);
+    // console.log("attaching TREE MSA: " , termasc); termasc++;
+    // console.log("Total Child: " , totalch); 
+    // if(treeresponse !== null) console.log("Tree Response: ", treeresponse.leafloc[0]);
+    // console.log("Seq: ", globalseq)
   return (
       <Grid key={1} item>
         <div className={classes.tree_div}>
@@ -54,7 +54,7 @@ function TreeMSA(props){
               getConfig={treeresponse === null ? setTreeresponse : d => {}}/>
           </Box>
           <Box width="50%" style={{ overflowX: 'scroll' }}>
-          {treeresponse !== null ? <MSA data={msadata} heigtoftree={240} dataToShow={treeresponse.leafloc}/> : null}
+          {treeresponse !== null ? <MSA data={msadata} heigtoftree={treeresponse.treeheight} dataToShow={treeresponse.leafloc}/> : null}
           </Box>
         </div>
       </Grid>

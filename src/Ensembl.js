@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+var termasc = 0;
+var totalch = 0;
+
 var globalseq = ""
 function ensemblToStock(currentNode) {
     var i, currentChild;
@@ -24,6 +27,7 @@ function ensemblToStock(currentNode) {
             ensemblToStock(currentChild);
         }else{
             globalseq += currentNode.sequence.id[0].accession + " " + currentNode.sequence.mol_seq.seq + "\n";
+            totalch++;
             return;
         }
 
@@ -35,7 +39,11 @@ function TreeMSA(props){
   const [treeresponse, setTreeresponse] = useState(null)
   const classes = useStyles()
 
-  console.log("msadata", msadata)
+//   console.log("msadata", msadata)
+
+    console.log("attaching TREE MSA: " , termasc); termasc++;
+    console.log("Total Child: " , totalch); 
+    if(treeresponse !== null) console.log("Tree Response: ", treeresponse.leafloc);
   return (
       <Grid key={1} item>
         <div className={classes.tree_div}>
@@ -87,7 +95,6 @@ function EnsembleDemo() {
           const text = await result.text();
           const msatext = await resultmsa.json();
           await ensemblToStock(msatext.tree)
-        //   console.log(x)
           setTree(text);
           setmsadata(globalseq)
           setError(undefined);

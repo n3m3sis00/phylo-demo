@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/phylo-react/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/phylo-react/static/js/main.2a65b889.chunk.js",
+    "main.js.map": "/phylo-react/static/js/main.2a65b889.chunk.js.map",
+    "runtime-main.js": "/phylo-react/static/js/runtime-main.e74e3694.js",
+    "runtime-main.js.map": "/phylo-react/static/js/runtime-main.e74e3694.js.map",
+    "static/js/2.be328792.chunk.js": "/phylo-react/static/js/2.be328792.chunk.js",
+    "static/js/2.be328792.chunk.js.map": "/phylo-react/static/js/2.be328792.chunk.js.map",
+    "index.html": "/phylo-react/index.html",
+    "precache-manifest.7d8842d287f872681dc0cf5e3ea8d341.js": "/phylo-react/precache-manifest.7d8842d287f872681dc0cf5e3ea8d341.js",
+    "service-worker.js": "/phylo-react/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/phylo-react/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.be328792.chunk.js.LICENSE.txt": "/phylo-react/static/js/2.be328792.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e74e3694.js",
+    "static/js/2.be328792.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.2a65b889.chunk.js"
+  ]
+}

@@ -5,15 +5,17 @@ function ensemblToStock(currentNode) {
     for (i = 0; i < 2; i += 1) {
         if(currentNode.children){
             currentChild = currentNode.children[i];
-            findSequences(currentChild);
+            ensemblToStock(currentChild);
         }else{
-            seq += currentNode.sequence.id.accession + " " + currentNode.sequence.mol_seq.seq;
-            return;
+            console.log(currentNode);
+            seq += currentNode.sequence.id[0].accession + " " + currentNode.sequence.mol_seq.seq + "\n";
+            process.exit();
+            return; 
         }
 
     }
 }
 
 const json = require('./ENSGT00390000003602.json');
-findSequences(json.tree)
+ensemblToStock(json.tree)
 console.log(seq)

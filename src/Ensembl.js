@@ -15,20 +15,18 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-var seq = ""
-
-function findSequences(currentNode) {
-    console.log(seq)
+var globalseq = ""
+function ensemblToStock(currentNode) {
     var i, currentChild;
-    if (currentNode.sequences) {
-        seq += currentNode.sequences.id.accession + " " + currentNode.sequences.mol_seq.seq
-    } else {
+    for (i = 0; i < 2; i += 1) {
         if(currentNode.children){
-            for (i = 0; i < currentNode.children.length; i += 1) {
-                currentChild = currentNode.children[i];
-                findSequences(currentChild);
-            }
+            currentChild = currentNode.children[i];
+            ensemblToStock(currentChild);
+        }else{
+            globalseq += currentNode.sequence.id[0].accession + " " + currentNode.sequence.mol_seq.seq + "\n";
+            return;
         }
+
     }
 }
 
@@ -37,7 +35,6 @@ function TreeMSA(props){
   const [treeresponse, setTreeresponse] = useState(null)
   const classes = useStyles()
 
-  console.log("reponse", treeresponse)
   console.log("msadata", msadata)
   return (
       <Grid key={1} item>
@@ -56,14 +53,14 @@ function TreeMSA(props){
   )
 }
 
-function App() {
+function EnsembleDemo() {
   const [tree, setTree] = useState();
   const [msadata, setmsadata] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
   const [showBranchLength, setShowBranchLength] = useState(true);
   const [geneId, setGeneId] = useState("ENSGT00390000003602");
-  const [species, setSpecies] = useState(true);
+  const [species, setSpecies] = useState(false);
   return (
     <div className="App">
       <form
@@ -89,10 +86,9 @@ function App() {
           }
           const text = await result.text();
           const msatext = await resultmsa.json();
-          console.log("consolelog msa", msatext)
-          console.log("consolelog msa", findSequences(msatext.tree))
+          const x_ = await ensemblToStock(msatext.tree)
           setTree(text);
-          setmsadata(msatext)
+          setmsadata(globalseq)
           setError(undefined);
           setLoading(false);
         }}
@@ -135,4 +131,4 @@ function App() {
   );
 }
 
-export default App;
+export default EnsembleDemo;

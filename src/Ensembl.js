@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Tree, MSA } from "phylo-react";
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -31,7 +31,7 @@ function ensemblToStock(currentNode) {
 }
 
 function TreeMSA(props){
-  const {treedata, msadata, geneId, showBranchLength, layout} = props
+  const {treedata, msadata, layout} = props
   const [treeresponse, setTreeresponse] = useState(null)
   const classes = useStyles()
 
@@ -86,7 +86,8 @@ function EnsembleDemo() {
           }
           const text = await result.text();
           const msatext = await resultmsa.json();
-          const x_ = await ensemblToStock(msatext.tree)
+          await ensemblToStock(msatext.tree)
+        //   console.log(x)
           setTree(text);
           setmsadata(globalseq)
           setError(undefined);

@@ -15,7 +15,7 @@ export default function MSA(props) {
     d3.selectAll('#metadata > *').remove()
     const svg = d3
       .select('#metadata')
-      .attr('width', 10000) //childLoc.length > 0 ? calcWidth(seq.get(childLoc[0].name)) : 0
+      .attr('width', 100000) //childLoc.length > 0 ? calcWidth(seq.get(childLoc[0].name)) : 0
       .attr('height', heightoftree) //leafNode from tree.js
       .attr('font-family', 'sans-serif')
       .attr('font-size', 10)

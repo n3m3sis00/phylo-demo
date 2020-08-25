@@ -7997,10 +7997,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-phylo-react@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/phylo-react/-/phylo-react-0.1.4.tgz#15d89cd46f867e34cb9cca6de50703a0bd0a36d4"
-  integrity sha512-c1Ql1ra8ySJUeYXKApnGsbuU0iAK9MNRZZDa+zY0o8fS92gtYv9hwMQmoJkBI07xvMawnyMEf03vL36nlOLA0Q==
+phylo-react@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/phylo-react/-/phylo-react-0.1.5.tgz#6a169a726c359019c6022cb3def8ac206417f9b5"
+  integrity sha512-ui3Fmpt17wHn5xoztdw4mXrhV2Mlya+rw2q9DmXnWqRb8bg1Ggml2tmb8PL4qZNGDiYvUN9nAk5uUbkatLCtuw==
 
 picomatch@^2.0.4, picomatch@^2.0.7:
   version "2.2.1"
